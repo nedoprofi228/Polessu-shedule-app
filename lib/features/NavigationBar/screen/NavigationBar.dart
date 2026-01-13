@@ -12,20 +12,23 @@ class MyNavigationbar extends StatelessWidget {
 
     return NavigationBar(
       selectedIndex: selectedIndex,
-      backgroundColor: theme.primaryColor,
+      backgroundColor: theme.bottomAppBarTheme.color,
       height: 70,
       destinations: [
         Column(
           children: [
             IconButton(
               highlightColor: const Color.fromARGB(75, 255, 255, 255),
-              icon: Icon(Icons.home, color: Colors.white),
+              icon: Icon(
+                Icons.home,
+                color: selectedIndex == 0 ? theme.cardColor : Colors.black,
+              ),
               onPressed: () => context.go(AppRoutes.shedule),
             ),
             Text(
               "расписание",
               style: TextStyle(
-                color: selectedIndex == 0 ? Colors.white : Colors.black,
+                color: selectedIndex == 0 ? theme.cardColor : Colors.black,
               ),
             ),
           ],
@@ -34,18 +37,21 @@ class MyNavigationbar extends StatelessWidget {
           children: [
             IconButton(
               highlightColor: const Color.fromARGB(75, 255, 255, 255),
-              icon: Icon(Icons.search, color: Colors.white),
+              icon: Icon(
+                Icons.search,
+                color: selectedIndex == 1 ? theme.cardColor : Colors.black,
+              ),
               onPressed: () {
                 String path =
                     "${AppRoutes.searchShedule}?t=${DateTime.now().millisecondsSinceEpoch}";
-              
+
                 context.go(path);
               },
             ),
             Text(
               "поиск",
               style: TextStyle(
-                color: selectedIndex == 1 ? Colors.white : Colors.black,
+                color: selectedIndex == 1 ? theme.cardColor : Colors.black,
               ),
             ),
           ],
@@ -54,13 +60,16 @@ class MyNavigationbar extends StatelessWidget {
           children: [
             IconButton(
               highlightColor: const Color.fromARGB(75, 255, 255, 255),
-              icon: Icon(Icons.person, color: Colors.white),
+              icon: Icon(
+                Icons.person,
+                color: selectedIndex == 2 ? theme.cardColor : Colors.black,
+              ),
               onPressed: () => context.go(AppRoutes.profile),
             ),
             Text(
               "профиль",
               style: TextStyle(
-                color: selectedIndex == 2 ? Colors.white : Colors.black,
+                color: selectedIndex == 2 ? theme.cardColor : Colors.black,
               ),
             ),
           ],

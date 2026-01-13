@@ -38,7 +38,7 @@ class SearchHistoryWidget extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   return Container(
-                    color: const Color.fromARGB(255, 238, 238, 238),
+                    color: theme.primaryColorLight,
                     child: Row(
                       children: [
                         Expanded(

@@ -24,19 +24,26 @@ class Myapprouter {
               routes: [
                 GoRoute(
                   path: AppRoutes.shedule,
-                  builder: (context, state) => UserSheduleScreen(),
+                  pageBuilder: (context, state) {
+                    return NoTransitionPage(key: state.pageKey , child: UserSheduleScreen());
+                  },
                 ),
 
                 GoRoute(
                   path: AppRoutes.searchShedule,
-                  builder: (context, state) => SearchSheduleScreen(key: Key(DateTime.now().millisecondsSinceEpoch.toString(),)),
+                  pageBuilder: (context, state) => NoTransitionPage(
+                    key: state.pageKey ,
+                    child: SearchSheduleScreen(
+                      key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
+                    ),
+                  ),
                 ),
 
                 GoRoute(
-                  
                   path: AppRoutes.profile,
-                  builder: (context, state) =>
-                    ProfileSreeen(),
+                  pageBuilder: (context, state) => NoTransitionPage(
+                    key: state.pageKey ,
+                    child: ProfileSreeen()),
                 ),
               ],
             ),

@@ -23,15 +23,16 @@ class Pairwidget extends StatelessWidget {
           children: [
             isActive ? SizedBox(width: 10) : SizedBox(width: 0),
 
-            Text(
-              pair.pairNum,
-
-              style: TextStyle(
-                fontSize: 16,
-
-                color: Colors.black,
-
-                fontFamily: "montserrat",
+            Container(
+              width: 10,
+              child: Text(
+                textAlign: TextAlign.right,
+                pair.pairNum,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontFamily: "montserrat",
+                ),
               ),
             ),
 

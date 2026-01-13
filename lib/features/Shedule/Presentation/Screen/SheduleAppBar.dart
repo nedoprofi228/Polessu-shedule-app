@@ -25,7 +25,8 @@ class SheduleAppBar extends StatelessWidget {
     return BlocBuilder<RegistrationBloc, RegistrationState>(
       builder: (context, registertState) {
         return BlocProvider(
-          create: (context) => getIt<Shedulebloc>()..add(LoadingShedule(groupName: groupName)),
+          create: (context) =>
+              getIt<Shedulebloc>()..add(LoadingShedule(groupName: groupName)),
           child: BlocBuilder<Shedulebloc, SheduleState>(
             builder: (context, state) {
               return Column(
@@ -33,20 +34,17 @@ class SheduleAppBar extends StatelessWidget {
                   Container(
                     height: 90,
                     padding: EdgeInsets.only(top: 35, left: 20, bottom: 5),
-                    color: theme.primaryColor,
+                    decoration: BoxDecoration(color: theme.primaryColor),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              groupName,
-                              style: theme.textTheme.titleLarge,
-                            ),
+                            Text(groupName, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
                             Text(
                               "${getWeekDayName(DateTime.now().weekday)} ${DateFormat("dd.MM.yy").format(DateTime.now())}",
-                              style: theme.textTheme.titleMedium,
+                              style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
                             ),
                           ],
                         ),
@@ -56,6 +54,11 @@ class SheduleAppBar extends StatelessWidget {
                             : ToDaySheduleBtn(),
                       ],
                     ),
+                  ),
+                  Divider(
+                    color: const Color.fromARGB(155, 0, 0, 0),
+                    thickness: 0.6,
+                    height: 0,
                   ),
                   Expanded(child: child),
                 ],
@@ -94,6 +97,7 @@ class ToWeekSheduleBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.only(right: 20),
       child: IconButton(
@@ -101,7 +105,7 @@ class ToWeekSheduleBtn extends StatelessWidget {
           print("перейти к недельному расписанию");
           context.read<Shedulebloc>().add(OpenWeeklyShedule());
         },
-        icon: Icon(Icons.calendar_month, color: Colors.white, size: 28),
+        icon: Icon(Icons.calendar_month, color: theme.cardColor, size: 28),
       ),
     );
   }
@@ -112,6 +116,8 @@ class ToDaySheduleBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     return Container(
       padding: const EdgeInsets.only(right: 20),
       child: IconButton(
@@ -119,7 +125,7 @@ class ToDaySheduleBtn extends StatelessWidget {
           print("перейти к дневному расписанию");
           context.read<Shedulebloc>().add(OpenDayShedule());
         },
-        icon: Icon(Icons.calendar_today, color: Colors.white, size: 28),
+        icon: Icon(Icons.calendar_today, color: theme.cardColor, size: 28),
       ),
     );
   }

@@ -46,7 +46,7 @@ class SearchGroupPanel extends StatelessWidget {
                       style: TextButton.styleFrom(
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         overlayColor: const Color.fromARGB(255, 26, 26, 26),
-                        backgroundColor: Colors.white,
+                        backgroundColor: theme.primaryColorLight,
                         foregroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadiusGeometry.circular(0),

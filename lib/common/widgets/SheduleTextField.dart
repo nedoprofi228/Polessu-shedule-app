@@ -21,7 +21,7 @@ class SheduleTextField extends StatelessWidget {
         clipBehavior: Clip.hardEdge, 
         
         child: TextField(
-          cursorColor: theme.primaryColor,
+          cursorColor: theme.cardColor,
           textAlign: TextAlign.center,
           onChanged: (value) => onChanged(value),
           

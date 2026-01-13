@@ -64,9 +64,11 @@ class SheduleScreen extends StatelessWidget {
 
         return Column(
           children: [
+
             Container(
               height: 20,
-              color: Color.fromARGB(255, 217, 217, 217),
+              decoration: BoxDecoration(color: theme.primaryColor,),
+              
               child: PageView(
                 key: pageViewKey,
                 physics: NeverScrollableScrollPhysics(),

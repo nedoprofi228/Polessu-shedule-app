@@ -1,13 +1,17 @@
 import 'package:application/router/MyAppRouter.dart';
 import 'package:application/services/Di.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-
+import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   Di di = Di();
   di.Init();
+  WidgetsFlutterBinding.ensureInitialized(); // Обязательно перед обращением к SystemChrome
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual,
+    overlays: [SystemUiOverlay.bottom],
+  );
   runApp(const MyBankingApp());
 }
 
@@ -20,13 +24,16 @@ class MyBankingApp extends StatelessWidget {
       title: 'Polessu App',
       routerConfig: Myapprouter().build(context),
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 254, 247, 255),
         appBarTheme: AppBarTheme(
-          backgroundColor: const Color.fromARGB(255, 0, 92, 49),
+          backgroundColor: const Color.fromARGB(164, 32, 129, 84),
         ),
-        primaryColor: const Color.fromARGB(255, 0, 92, 49),
-        primaryColorLight: Colors.white,
+        primaryColor: const Color.fromARGB(255, 254, 247, 255),
+        primaryColorLight: Color.fromARGB(255, 243, 237, 247),
         cardColor: Color.fromARGB(255, 0, 92, 49),
+        bottomAppBarTheme: BottomAppBarThemeData(
+          color: Color.fromARGB(255, 243, 237, 247),
+        ),
         dividerTheme: DividerThemeData(
           color: const Color.fromARGB(52, 96, 125, 139),
         ),
@@ -38,31 +45,31 @@ class MyBankingApp extends StatelessWidget {
           titleTextStyle: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w500,
-            color: Colors.black,
+            color: const Color.fromARGB(255, 75, 75, 75),
           ),
         ),
         textTheme: TextTheme(
           titleLarge: TextStyle(
-            fontSize: 18,
+            fontSize: 20,
             fontFamily: "montserrat",
-            color: Colors.white,
+            color: const Color.fromARGB(255, 75, 75, 75),
           ),
           titleMedium: TextStyle(
             fontSize: 14,
             fontFamily: "montserrat",
-            color: Colors.white,
+            color: const Color.fromARGB(255, 75, 75, 75),
           ),
           bodyLarge: TextStyle(
             fontSize: 15,
             fontFamily: "montserrat",
-            color: Colors.black,
+            color: const Color.fromARGB(255, 75, 75, 75),
             letterSpacing: 1.2,
             height: 1.2,
           ),
           bodyMedium: TextStyle(
             fontSize: 13,
             fontFamily: "montserrat",
-            color: Colors.black,
+            color: const Color.fromARGB(255, 75, 75, 75),
             letterSpacing: 1.2,
             height: 1.2,
             fontWeight: FontWeight.bold,
@@ -70,7 +77,7 @@ class MyBankingApp extends StatelessWidget {
           bodySmall: TextStyle(
             fontSize: 13,
             fontFamily: "montserrat",
-            color: Colors.black,
+            color: const Color.fromARGB(255, 75, 75, 75),
             height: 1.2,
           ),
         ),
