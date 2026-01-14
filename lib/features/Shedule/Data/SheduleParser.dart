@@ -15,11 +15,12 @@ class Sheduleparser {
         for (var pairData in dayData["lessons"] as List<dynamic>) {
           Pair pair = Pair(
             subjectName: pairData["subject"],
+            subjectType: pairData["sub-type"],
             teacherName: pairData["details"],
             pairNum: pairData["pair_num"].toString(),
             roomNum: pairData["room"],
             time: pairData["time"],
-            subGroup: pairData["subgroup"]
+            subGroup: pairData["subgroup"],
           );
 
           dayPairs.add(pair);

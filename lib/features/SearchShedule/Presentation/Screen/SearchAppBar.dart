@@ -22,7 +22,7 @@ class SearchAppBar extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  height: 90,
+                  height: 120,
                   width: double.infinity,
                   color: theme.primaryColor,
                 ),
@@ -32,7 +32,7 @@ class SearchAppBar extends StatelessWidget {
             ),
 
             Positioned(
-              top: 45,
+              top: 65,
               left: 0,
               right: 0,
               child: Container(

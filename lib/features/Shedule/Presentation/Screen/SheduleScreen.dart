@@ -41,7 +41,7 @@ class SheduleScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircularProgressIndicator(color: theme.primaryColor),
+              CircularProgressIndicator(color: theme.cardColor),
               SizedBox(height: 20),
               Text("загрузка пар...", style: theme.textTheme.bodyLarge),
             ],
@@ -53,7 +53,9 @@ class SheduleScreen extends StatelessWidget {
 
         PageController datePageController = PageController(
           initialPage: pageIndex,
-          viewportFraction: state.visibleMode == SheduleVisibleMode.dayShedule? 0.4: 0.5,
+          viewportFraction: state.visibleMode == SheduleVisibleMode.dayShedule
+              ? 0.4
+              : 0.5,
         );
 
         PageController shedulePageController = PageController(
@@ -64,11 +66,10 @@ class SheduleScreen extends StatelessWidget {
 
         return Column(
           children: [
-
             Container(
               height: 20,
-              decoration: BoxDecoration(color: theme.primaryColor,),
-              
+              decoration: BoxDecoration(color: theme.primaryColor),
+
               child: PageView(
                 key: pageViewKey,
                 physics: NeverScrollableScrollPhysics(),
@@ -144,7 +145,9 @@ class SheduleScreen extends StatelessWidget {
           1,
         ).add(Duration(days: curentDayOffset + day.dayId));
 
-        if (currentDate.day <= date.day && currentDate.month <= date.month && currentDate.year <= date.year) {
+        if (currentDate.day <= date.day &&
+            currentDate.month <= date.month &&
+            currentDate.year <= date.year) {
           return dayCount;
         }
 
@@ -228,7 +231,7 @@ class SheduleScreen extends StatelessWidget {
   List<Widget> daySheduleList(List<WeekPairs> weeks) {
     List<Widget> daySheduleList = [];
     DateTime currentDate = DateTime.now();
-    DateTime startTime = DateTime(currentDate.year-1, 9, 1);
+    DateTime startTime = DateTime(currentDate.year - 1, 9, 1);
     for (var week in weeks) {
       daySheduleList.addAll(
         week.shedule.map((day) {
@@ -249,6 +252,7 @@ class SheduleScreen extends StatelessWidget {
     return weekPairsList
         .map(
           (week) => SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: week.shedule

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:application/common/entities/Pair.dart';
 import 'package:flutter/material.dart';
 
@@ -24,15 +26,34 @@ class Pairwidget extends StatelessWidget {
             isActive ? SizedBox(width: 10) : SizedBox(width: 0),
 
             Container(
-              width: 10,
-              child: Text(
-                textAlign: TextAlign.right,
-                pair.pairNum,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                  fontFamily: "montserrat",
-                ),
+              width: 12,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    textAlign: TextAlign.right,
+                    pair.pairNum,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontFamily: "montserrat",
+                    ),
+                  ),
+                  RotatedBox(
+                    quarterTurns: -1,
+                    child: Text(
+                      textAlign: TextAlign.start,
+                      pair.subjectType,
+                      style: TextStyle(
+                        
+                        height: 1,
+                        fontSize: 14,
+                        color: Colors.black,
+                        fontFamily: "montserrat",
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
@@ -55,62 +76,55 @@ class Pairwidget extends StatelessWidget {
                 children: [
                   Text(
                     pair.subjectName,
-
                     style: theme.textTheme.bodyMedium,
-
                     overflow: TextOverflow.fade,
                   ),
 
                   Expanded(
                     child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            fit: FlexFit.loose,
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          fit: FlexFit.loose,
 
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                pair.subGroup != ""
-                                    ? Text(
-                                        pair.subGroup,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              pair.subGroup != ""
+                                  ? Text(
+                                      pair.subGroup,
 
-                                        style: theme.textTheme.bodySmall,
-                                      )
-                                    : SizedBox(),
+                                      style: theme.textTheme.bodySmall,
+                                    )
+                                  : SizedBox(),
 
-                                Text(
-                                  pair.time,
-                                  style: theme.textTheme.bodySmall,
-                                ),
+                              Text(pair.time, style: theme.textTheme.bodySmall),
 
-                                Text(
-                                  pair.roomNum,
+                              Text(
+                                pair.roomNum,
 
-                                  style: theme.textTheme.bodySmall,
+                                style: theme.textTheme.bodySmall,
 
-                                  overflow: TextOverflow.fade,
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          Expanded(
-                            child:  Text(
-                                textAlign: TextAlign.right,
-
-                                pair.teacherName,
-
-                                style: theme.textTheme.bodyMedium,
-                                overflow: TextOverflow.fade
+                                overflow: TextOverflow.fade,
                               ),
-      
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
 
+                        Expanded(
+                          child: Text(
+                            textAlign: TextAlign.right,
+
+                            pair.teacherName,
+
+                            style: theme.textTheme.bodyMedium,
+                            overflow: TextOverflow.fade,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
