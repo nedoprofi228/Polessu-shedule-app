@@ -3,7 +3,7 @@ import 'package:application/common/entities/Pair.dart';
 import 'package:application/common/entities/WeekPairs.dart';
 
 class Sheduleparser {
-  List<WeekPairs> parse(Map<String, dynamic> data) {
+  List<WeekPairs> parseFromJson(Map<String, dynamic> data) {
     List<WeekPairs> weekSheduleList = [];
 
     for (var weekData in data["schedule"] as List<dynamic>) {
@@ -43,5 +43,9 @@ class Sheduleparser {
     }
 
     return weekSheduleList;
+  }
+
+  List<WeekPairs> parseFromDb(List<Map<String, dynamic>> data){
+    return <WeekPairs>[];
   }
 }

@@ -1,6 +1,5 @@
 import 'package:application/features/registration/domain/entities/User.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 enum RegisterStatus { loading, registered, unRegistered, failure }
 

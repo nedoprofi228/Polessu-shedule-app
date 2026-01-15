@@ -2,6 +2,7 @@ import 'package:application/common/Registerbloc/registrationBloc.dart';
 import 'package:application/common/data/GroupRepositoryImp.dart';
 import 'package:application/common/repositories/GroupRepository.dart';
 import 'package:application/common/searchGroupBloc/SearchGroupBloc.dart';
+import 'package:application/common/services/DataBaseService.dart';
 import 'package:application/common/services/SearchGroupService.dart';
 import 'package:application/common/usecases/GetGroupsUsecase.dart';
 import 'package:application/features/SearchShedule/Data/SearchGroupRepoImp.dart';
@@ -13,7 +14,7 @@ import 'package:application/features/SearchShedule/Domain/usecases/saveSearchInH
 import 'package:application/features/Shedule/Data/SheduleParser.dart';
 import 'package:application/features/Shedule/Data/SheduleRepositoryImpl.dart';
 import 'package:application/features/Shedule/Domain/repository/SheduleRepository.dart';
-import 'package:application/features/Shedule/Domain/usecases/GetAllShedule.dart';
+import 'package:application/features/Shedule/Domain/usecases/getAllSheduleFromServer.dart';
 import 'package:application/features/Shedule/Presentation/Bloc/SheduleBloc.dart';
 import 'package:application/features/registration/data/RegisterReposytoryImp.dart';
 import 'package:application/features/registration/domain/repository/registerRepo.dart';
@@ -43,9 +44,9 @@ class Di {
       ),
     );
 
-    getIt.registerLazySingleton<SearchGroupRepo>(() => SearchGroupRepoImp());
+    getIt.registerLazySingleton<SearchGroupRepo>(() => SearchGroupRepoImp(dataBaseService: getIt()));
     getIt.registerLazySingleton<SheduleRepository>(
-      () => Shedulerepositoryimpl(dio: getIt(), parser: getIt()),
+      () => Shedulerepositoryimpl(dio: getIt(), parser: getIt(), dataBaseService: getIt()),
     );
     getIt.registerLazySingleton<RegisterRepository>(
       () => RegisterReposytoryImp(),
@@ -55,10 +56,11 @@ class Di {
     getIt.registerLazySingleton<SearchGtroupService>(
       () => SearchGtroupService(),
     );
+    getIt.registerLazySingleton<DataBaseService>(() => DataBaseService());
     getIt.registerLazySingleton<Dio>(() => Dio());
     getIt.registerLazySingleton<Sheduleparser>(() => Sheduleparser());
-    getIt.registerLazySingleton<Getallshedule>(
-      () => Getallshedule(repository: getIt()),
+    getIt.registerLazySingleton<GetAllSheduleFromServer>(
+      () => GetAllSheduleFromServer(repository: getIt()),
     );
 
     getIt.registerLazySingleton<Deletehistoryusecase>(

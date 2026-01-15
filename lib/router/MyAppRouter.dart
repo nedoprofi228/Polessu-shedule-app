@@ -25,16 +25,25 @@ class Myapprouter {
                 GoRoute(
                   path: AppRoutes.shedule,
                   pageBuilder: (context, state) {
-                    return NoTransitionPage(key: state.pageKey , child: UserSheduleScreen());
+                    return NoTransitionPage(
+                      key: state.pageKey,
+                      child: UserSheduleScreen(
+                        key: Key(
+                          DateTime.now().millisecondsSinceEpoch.toString(),
+                        ),
+                      ),
+                    );
                   },
                 ),
 
                 GoRoute(
                   path: AppRoutes.searchShedule,
                   pageBuilder: (context, state) => NoTransitionPage(
-                    key: state.pageKey ,
+                    key: state.pageKey,
                     child: SearchSheduleScreen(
-                      key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
+                      key: Key(
+                        DateTime.now().millisecondsSinceEpoch.toString(),
+                      ),
                     ),
                   ),
                 ),
@@ -42,8 +51,9 @@ class Myapprouter {
                 GoRoute(
                   path: AppRoutes.profile,
                   pageBuilder: (context, state) => NoTransitionPage(
-                    key: state.pageKey ,
-                    child: ProfileSreeen()),
+                    key: state.pageKey,
+                    child: ProfileSreeen(),
+                  ),
                 ),
               ],
             ),

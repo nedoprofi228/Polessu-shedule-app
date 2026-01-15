@@ -1,3 +1,6 @@
+import 'package:json_annotation/json_annotation.dart';
+
+
 class Pair {
   final String subjectName;
   final String subjectType;
@@ -14,6 +17,7 @@ class Pair {
     required this.pairNum,
     required this.roomNum,
     required this.time,
-    required this.subGroup
+    required this.subGroup,
   });
+
 }

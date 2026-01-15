@@ -6,6 +6,7 @@ import 'package:application/features/Shedule/Presentation/Bloc/SheduleEvent.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 GetIt getIt = GetIt.instance;
@@ -25,8 +26,16 @@ class SheduleAppBar extends StatelessWidget {
     return BlocBuilder<RegistrationBloc, RegistrationState>(
       builder: (context, registertState) {
         return BlocProvider(
-          create: (context) =>
-              getIt<Shedulebloc>()..add(LoadingShedule(groupName: groupName)),
+          create: (context) => getIt<Shedulebloc>()
+            ..add(
+              LoadingShedule(
+                groupName: groupName,
+                action:
+                    GoRouter.of(context).state.pathParameters['action'] == 'get'
+                    ? LoadingAction.get
+                    : LoadingAction.reload,
+              ),
+            ),
           child: BlocBuilder<Shedulebloc, SheduleState>(
             builder: (context, state) {
               return Column(
@@ -41,10 +50,17 @@ class SheduleAppBar extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(groupName, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
+                            Text(
+                              groupName,
+                              style: theme.textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                             Text(
                               "${getWeekDayName(DateTime.now().weekday)} ${DateFormat("dd.MM.yy").format(DateTime.now())}",
-                              style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ],
                         ),

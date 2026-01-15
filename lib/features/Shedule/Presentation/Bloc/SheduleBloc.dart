@@ -1,11 +1,12 @@
+import 'package:application/common/entities/WeekPairs.dart';
 import 'package:application/features/Shedule/Data/SheduleRepositoryImpl.dart';
-import 'package:application/features/Shedule/Domain/usecases/GetAllShedule.dart';
+import 'package:application/features/Shedule/Domain/usecases/getAllSheduleFromServer.dart';
 import 'package:application/features/Shedule/Presentation/Bloc/SheduleEvent.dart';
 import 'package:application/features/Shedule/Presentation/Bloc/SheduleState.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Shedulebloc extends Bloc<SheduleEvent, SheduleState> {
-  final Getallshedule getAllSheduleUsecase;
+  final GetAllSheduleFromServer getAllSheduleUsecase;
 
   Shedulebloc({required this.getAllSheduleUsecase})
     : super(const SheduleState()) {
@@ -21,12 +22,9 @@ class Shedulebloc extends Bloc<SheduleEvent, SheduleState> {
 
     on<LoadingShedule>((event, emit) async {
       try {
-        emit(
-          state.copyWith(
-            pairs: await getAllSheduleUsecase(event.groupName),
-            status: SheduleStatus.loaded,
-          ),
-        );
+        List<WeekPairs> pairs = await getAllSheduleUsecase(event.groupName);
+
+        emit(state.copyWith(pairs: pairs, status: SheduleStatus.loaded));
       } catch (e) {
         emit(
           state.copyWith(status: SheduleStatus.failure, error: e.toString()),

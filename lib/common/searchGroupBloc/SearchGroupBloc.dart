@@ -6,7 +6,7 @@ import 'package:application/features/SearchShedule/Domain/usecases/deleteHistory
 import 'package:application/features/SearchShedule/Domain/usecases/deleteSearchHistoryUsecase.dart';
 import 'package:application/features/SearchShedule/Domain/usecases/getSearchHistory.dart';
 import 'package:application/features/SearchShedule/Domain/usecases/saveSearchInHistory.dart';
-import 'package:application/features/Shedule/Domain/usecases/GetAllShedule.dart';
+import 'package:application/features/Shedule/Domain/usecases/getAllSheduleFromServer.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
