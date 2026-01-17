@@ -6,6 +6,7 @@ import 'package:application/common/widgets/DayPairsSheduleWidget.dart';
 import 'package:application/features/Shedule/Presentation/Bloc/SheduleBloc.dart';
 import 'package:application/features/Shedule/Presentation/Bloc/SheduleEvent.dart';
 import 'package:application/features/Shedule/Presentation/Screen/SheduleAppBar.dart';
+import 'package:application/features/Shedule/Presentation/widgets/notifyWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +33,7 @@ class SheduleScreen extends StatelessWidget {
     return BlocBuilder<Shedulebloc, SheduleState>(
       builder: (context, state) {
         if (state.status == SheduleStatus.failure) {
-          return Text(state.error);
+          showTopNotification(context, "ошибка загрузки пар");
         }
 
         if (state.status != SheduleStatus.loaded) {
@@ -47,6 +48,16 @@ class SheduleScreen extends StatelessWidget {
             ],
           );
         }
+
+        if (state.weeks.isEmpty) {
+          return Center(
+            child: Text(
+              "Нет пар",
+              style: theme.textTheme.titleLarge?.copyWith(fontSize: 24),
+            ),
+          );
+        }
+
         var pageIndex = state.visibleMode == SheduleVisibleMode.dayShedule
             ? getCurrentPageOfDays(state.weeks)
             : getCurrentPageOfWeeks(state.weeks);
@@ -104,19 +115,23 @@ class SheduleScreen extends StatelessWidget {
   }
 
   int getCurrentPageOfWeeks(List<WeekPairs> weeks) {
+    DateTime startTime;
     DateTime currentDate = DateTime.now();
+    if (currentDate.month <= 12 &&
+        currentDate.month >= 9 &&
+        currentDate.day < 19) {
+      startTime = DateTime(currentDate.year, 9, 1);
+    } else {
+      startTime = DateTime(currentDate.year, 1, 19);
+    }
 
     for (var i = 0; i < weeks.length; i++) {
-      DateTime startDate = DateTime(
-        2025,
-        9,
-        0,
-      ).add(Duration(days: weeks[i].weekNum * 7 + 1));
-      DateTime endDate = DateTime(
-        2025,
-        9,
-        0,
-      ).add(Duration(days: weeks[i].weekNum * 7 + 6));
+      DateTime startDate = startTime.add(
+        Duration(days: weeks[i].weekNum * 7 + 1),
+      );
+      DateTime endDate = startTime.add(
+        Duration(days: weeks[i].weekNum * 7 + 6),
+      );
 
       print(
         "i: $i, start date: $startDate, end date: $endDate, current date: $currentDate",
@@ -133,17 +148,23 @@ class SheduleScreen extends StatelessWidget {
   int getCurrentPageOfDays(List<WeekPairs> weeks) {
     int dayCount = 0;
 
+    DateTime startTime;
     DateTime currentDate = DateTime.now();
+    if (currentDate.month <= 12 &&
+        currentDate.month >= 9 &&
+        currentDate.day < 19) {
+      startTime = DateTime(currentDate.year, 9, 1);
+    } else {
+      startTime = DateTime(currentDate.year, 1, 19);
+    }
 
     for (var week in weeks) {
       int curentDayOffset = week.weekNum * 7;
 
       for (var day in week.shedule) {
-        DateTime date = DateTime(
-          2025,
-          9,
-          1,
-        ).add(Duration(days: curentDayOffset + day.dayId));
+        DateTime date = startTime.add(
+          Duration(days: curentDayOffset + day.dayId),
+        );
 
         if (currentDate.day <= date.day &&
             currentDate.month <= date.month &&
@@ -159,20 +180,23 @@ class SheduleScreen extends StatelessWidget {
   }
 
   List<Widget> getWeekentDateList(List<WeekPairs> weeks) {
-
     DateTime startTime;
     DateTime currentDate = DateTime.now();
     if (currentDate.month <= 12 &&
         currentDate.month >= 9 &&
         currentDate.day < 19) {
       startTime = DateTime(currentDate.year, 9, 1);
-    }else{
-      startTime = DateTime(currentDate.year, 1, 19);
+    } else {
+      startTime = DateTime(currentDate.year, 1, 18);
     }
 
     var dateList = List.generate(weeks.length, (i) {
-      DateTime startDate = startTime.add(Duration(days: weeks[i].weekNum * 7 + 1));
-      DateTime endDate = startTime.add(Duration(days: weeks[i].weekNum * 7 + 6));
+      DateTime startDate = startTime.add(
+        Duration(days: weeks[i].weekNum * 7 + 1),
+      );
+      DateTime endDate = startTime.add(
+        Duration(days: weeks[i].weekNum * 7 + 6),
+      );
 
       return Center(
         child: Text(
@@ -193,7 +217,7 @@ class SheduleScreen extends StatelessWidget {
         currentDate.month >= 9 &&
         currentDate.day < 19) {
       startTime = DateTime(currentDate.year, 9, 1);
-    }else{
+    } else {
       startTime = DateTime(currentDate.year, 1, 19);
     }
 
@@ -201,7 +225,9 @@ class SheduleScreen extends StatelessWidget {
       int curentDayOffset = week.weekNum * 7;
 
       for (var day in week.shedule) {
-        DateTime date = startTime.add(Duration(days: curentDayOffset + day.dayId));
+        DateTime date = startTime.add(
+          Duration(days: curentDayOffset + day.dayId),
+        );
 
         pairDateList.add(
           Center(
@@ -243,7 +269,7 @@ class SheduleScreen extends StatelessWidget {
         currentDate.month >= 9 &&
         currentDate.day < 19) {
       startTime = DateTime(currentDate.year, 9, 1);
-    }else{
+    } else {
       startTime = DateTime(currentDate.year, 1, 19);
     }
     for (var week in weeks) {

@@ -52,22 +52,25 @@ class SheduleAppBar extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              groupName,
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.w600,
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                groupName,
+                                style: theme.textTheme.titleLarge?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  overflow: TextOverflow.ellipsis
+                                ),
                               ),
-                            ),
-                            Text(
-                              "${getWeekDayName(DateTime.now().weekday)} ${DateFormat("dd.MM.yy").format(DateTime.now())}",
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
+                              Text(
+                                "${getWeekDayName(DateTime.now().weekday)} ${DateFormat("dd.MM.yy").format(DateTime.now())}",
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
 
                         state.visibleMode == SheduleVisibleMode.dayShedule

@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Shedulebloc extends Bloc<SheduleEvent, SheduleState> {
   static AllShedule? currentShedule;
+
   final GetAllSheduleFromServer getAllSheduleFromServerUsecase;
   final GetAllSheduleFromDbUsecase getAllSheduleFromDbUsecase;
   final SaveSheduleToDbUsecase saveSheduleToDbUsecase;
@@ -52,10 +53,12 @@ class Shedulebloc extends Bloc<SheduleEvent, SheduleState> {
           currentShedule = AllShedule(
             hash: prefs.getString("hash") ?? "",
             weeks: pairs,
+            groupName: event.groupName
           );
         }
 
-        if (currentShedule!.weeks.isNotEmpty) {
+        if (currentShedule!.weeks.isNotEmpty &&
+            currentShedule!.groupName == event.groupName) {
           emit(
             state.copyWith(
               weeks: currentShedule!.weeks,
@@ -63,12 +66,13 @@ class Shedulebloc extends Bloc<SheduleEvent, SheduleState> {
             ),
           );
         }
-        
+
         AllShedule sheduleFromServer = await getAllSheduleFromServerUsecase(
           event.groupName,
         );
         if (sheduleFromServer.hash != currentShedule!.hash) {
           currentShedule = AllShedule(
+            groupName: event.groupName,
             hash: sheduleFromServer.hash,
             weeks: sheduleFromServer.weeks,
           );
@@ -86,8 +90,8 @@ class Shedulebloc extends Bloc<SheduleEvent, SheduleState> {
           return;
         }
       } catch (e) {
-        emit(
-          state.copyWith(status: SheduleStatus.failure, error: e.toString()),
+        emit( 
+          state.copyWith(status: SheduleStatus.loaded, error: e.toString()),
         );
       }
     });
