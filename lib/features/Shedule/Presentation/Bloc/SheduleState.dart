@@ -13,6 +13,7 @@ class SheduleState extends Equatable {
   final SheduleStatus status;
   final String error;
   final int currentPageIndex;
+  final String notifyMassage;
 
   const SheduleState({
     this.weeks = const [],
@@ -20,24 +21,27 @@ class SheduleState extends Equatable {
     this.status = SheduleStatus.loading,
     this.error = "",
     this.currentPageIndex = 0,
+    this.notifyMassage = ""
   });
 
   @override
-  List<Object?> get props => [visibleMode, status, error, currentPageIndex];
+  List<Object?> get props => [visibleMode, status, error, currentPageIndex, notifyMassage];
 
   SheduleState copyWith({
-    List<WeekPairs>? pairs,
-    SheduleVisibleMode? visibleStatus,
+    List<WeekPairs>? weeks,
+    SheduleVisibleMode? visibleMode,
     SheduleStatus? status,
     String? error,
     int? currentPageIndex,
+    String? notifyMassage
   }) {
     return SheduleState(
-      weeks: pairs ?? this.weeks,
-      visibleMode: visibleStatus ?? this.visibleMode,
+      weeks: weeks ?? this.weeks,
+      visibleMode: visibleMode ?? this.visibleMode,
       status: status ?? this.status,
       error: error ?? this.error,
       currentPageIndex: currentPageIndex ?? this.currentPageIndex,
+      notifyMassage: notifyMassage ?? this.notifyMassage
     );
   }
 }

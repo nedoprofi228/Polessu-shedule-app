@@ -1,9 +1,10 @@
+import 'package:application/common/entities/AllShedule.dart';
 import 'package:application/common/entities/DayShedule.dart';
 import 'package:application/common/entities/Pair.dart';
 import 'package:application/common/entities/WeekPairs.dart';
 
 class Sheduleparser {
-  List<WeekPairs> parseFromJson(Map<String, dynamic> data) {
+  AllShedule parseFromJson(Map<String, dynamic> data) {
     List<WeekPairs> weekSheduleList = [];
 
     for (var weekData in data["schedule"] as List<dynamic>) {
@@ -42,10 +43,7 @@ class Sheduleparser {
       weekSheduleList.add(weekPairs);
     }
 
-    return weekSheduleList;
-  }
-
-  List<WeekPairs> parseFromDb(List<Map<String, dynamic>> data){
-    return <WeekPairs>[];
+    AllShedule allShedule = AllShedule(hash: data["hash"], weeks: weekSheduleList);
+    return allShedule;
   }
 }

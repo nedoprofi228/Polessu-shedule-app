@@ -8,9 +8,9 @@ class OpenDayShedule extends SheduleEvent {}
 
 class LoadingShedule extends SheduleEvent {
   final String groupName;
-  final LoadingAction action;
+  final LoadingType type;
 
-  const LoadingShedule({required this.groupName, required this.action});
+  const LoadingShedule({required this.groupName, required this.type});
 }
 
-enum LoadingAction { get, reload }
+enum LoadingType { selfShedule, search }

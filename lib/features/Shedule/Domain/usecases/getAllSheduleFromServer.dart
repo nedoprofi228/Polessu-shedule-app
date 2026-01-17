@@ -1,3 +1,4 @@
+import 'package:application/common/entities/AllShedule.dart';
 import 'package:application/common/entities/WeekPairs.dart';
 import 'package:application/features/Shedule/Domain/repository/SheduleRepository.dart';
 
@@ -6,7 +7,7 @@ class GetAllSheduleFromServer {
 
   const GetAllSheduleFromServer({required this.repository});
 
-  Future<List<WeekPairs>> call(String groupName) async {
+  Future<AllShedule> call(String groupName) async {
     return await repository.getAllSheduleFromServer(groupName);
   }
 }

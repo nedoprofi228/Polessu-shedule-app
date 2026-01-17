@@ -1,5 +1,6 @@
 import 'package:application/common/Registerbloc/registrationBloc.dart';
 import 'package:application/common/Registerbloc/registrationState.dart';
+import 'package:application/features/Shedule/Presentation/Bloc/SheduleEvent.dart';
 import 'package:application/features/Shedule/Presentation/Screen/SheduleAppBar.dart';
 import 'package:application/features/Shedule/Presentation/Screen/SheduleScreen.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class UserSheduleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RegistrationBloc, RegistrationState>(
       builder: (context, state) {
-        return SheduleAppBar(groupName: state.user.group, child: SheduleScreen());
+        return SheduleAppBar(groupName: state.user.group, type: LoadingType.selfShedule, child: SheduleScreen());
       },
     );
   }

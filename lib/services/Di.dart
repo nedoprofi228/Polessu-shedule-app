@@ -14,7 +14,9 @@ import 'package:application/features/SearchShedule/Domain/usecases/saveSearchInH
 import 'package:application/features/Shedule/Data/SheduleParser.dart';
 import 'package:application/features/Shedule/Data/SheduleRepositoryImpl.dart';
 import 'package:application/features/Shedule/Domain/repository/SheduleRepository.dart';
+import 'package:application/features/Shedule/Domain/usecases/getAllSheduleFromDbUsecase.dart';
 import 'package:application/features/Shedule/Domain/usecases/getAllSheduleFromServer.dart';
+import 'package:application/features/Shedule/Domain/usecases/saveSheduleToDbUsecase.dart';
 import 'package:application/features/Shedule/Presentation/Bloc/SheduleBloc.dart';
 import 'package:application/features/registration/data/RegisterReposytoryImp.dart';
 import 'package:application/features/registration/domain/repository/registerRepo.dart';
@@ -28,7 +30,11 @@ var getIt = GetIt.instance;
 class Di {
   void Init() {
     getIt.registerFactory<Shedulebloc>(
-      () => Shedulebloc(getAllSheduleUsecase: getIt()),
+      () => Shedulebloc(
+        getAllSheduleFromServerUsecase: getIt(),
+        getAllSheduleFromDbUsecase: getIt(),
+        saveSheduleToDbUsecase: getIt(),
+      ),
     );
     getIt.registerFactory<RegistrationBloc>(
       () => RegistrationBloc(getUserData: getIt(), saveUserData: getIt()),
@@ -44,9 +50,15 @@ class Di {
       ),
     );
 
-    getIt.registerLazySingleton<SearchGroupRepo>(() => SearchGroupRepoImp(dataBaseService: getIt()));
+    getIt.registerLazySingleton<SearchGroupRepo>(
+      () => SearchGroupRepoImp(dataBaseService: getIt()),
+    );
     getIt.registerLazySingleton<SheduleRepository>(
-      () => Shedulerepositoryimpl(dio: getIt(), parser: getIt(), dataBaseService: getIt()),
+      () => Shedulerepositoryimpl(
+        dio: getIt(),
+        parser: getIt(),
+        dataBaseService: getIt(),
+      ),
     );
     getIt.registerLazySingleton<RegisterRepository>(
       () => RegisterReposytoryImp(),
@@ -63,6 +75,12 @@ class Di {
       () => GetAllSheduleFromServer(repository: getIt()),
     );
 
+    getIt.registerLazySingleton<GetAllSheduleFromDbUsecase>(
+      () => GetAllSheduleFromDbUsecase(repository: getIt()),
+    );
+    getIt.registerLazySingleton<SaveSheduleToDbUsecase>(
+      () => SaveSheduleToDbUsecase(repository: getIt()),
+    );
     getIt.registerLazySingleton<Deletehistoryusecase>(
       () => Deletehistoryusecase(repository: getIt()),
     );
@@ -78,11 +96,11 @@ class Di {
     getIt.registerLazySingleton<GetSearchHistory>(
       () => GetSearchHistory(repository: getIt()),
     );
-    getIt.registerLazySingleton<SaveSearchInHistoryUsecase>(
-      () => SaveSearchInHistoryUsecase(repository: getIt()),
-    );
     getIt.registerLazySingleton<GetGroupsUsecase>(
       () => GetGroupsUsecase(repository: getIt()),
+    );
+    getIt.registerLazySingleton<SaveSearchInHistoryUsecase>(
+      () => SaveSearchInHistoryUsecase(repository: getIt()),
     );
   }
 }

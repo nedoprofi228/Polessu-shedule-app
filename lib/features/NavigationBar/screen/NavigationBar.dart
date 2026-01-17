@@ -19,16 +19,18 @@ class MyNavigationbar extends StatelessWidget {
           children: [
             IconButton(
               highlightColor: const Color.fromARGB(74, 175, 175, 175),
-              icon: selectedIndex == 0
-                  ? Icon(Icons.refresh, color: theme.cardColor)
-                  : Icon(Icons.home, color: Colors.black),
-              onPressed: () => selectedIndex == 0
-                  ? context.go("${AppRoutes.shedule}?action=update")
-                  : context.go("${AppRoutes.shedule}?action=get"),
+              icon: Icon(
+                Icons.home,
+                color: selectedIndex == 0 ? theme.cardColor : Colors.black,
+              ),
+              onPressed: () => context.go(AppRoutes.shedule),
             ),
-            selectedIndex == 0
-                ? Text("обновить", style: TextStyle(color: theme.cardColor))
-                : Text("расписание", style: TextStyle(color: Colors.black)),
+            Text(
+              "расписание",
+              style: TextStyle(
+                color: selectedIndex == 0 ? theme.cardColor : Colors.black,
+              ),
+            ),
           ],
         ),
         Column(

@@ -24,11 +24,10 @@ class SearchSheduleScreen extends StatelessWidget {
             return SearchAppBar(child: SearchHistoryWidget());
           }
 
-          return BlocProvider<Shedulebloc>(
-            create: (context) =>
-                getIt<Shedulebloc>()
-                  ..add(LoadingShedule(action: LoadingAction.get, groupName: state.selectedGroup)),
-            child: SheduleAppBar(groupName: state.selectedGroup, child: SheduleScreen()),
+          return SheduleAppBar(
+            groupName: state.selectedGroup,
+            type: LoadingType.search,
+            child: SheduleScreen(),
           );
         },
       ),

@@ -3,6 +3,7 @@ import 'package:application/common/Registerbloc/registrationState.dart';
 import 'package:application/features/Shedule/Presentation/Bloc/SheduleState.dart';
 import 'package:application/features/Shedule/Presentation/Bloc/SheduleBloc.dart';
 import 'package:application/features/Shedule/Presentation/Bloc/SheduleEvent.dart';
+import 'package:application/features/Shedule/Presentation/widgets/notifyWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -13,11 +14,13 @@ GetIt getIt = GetIt.instance;
 
 class SheduleAppBar extends StatelessWidget {
   final String groupName;
+  final LoadingType type;
   final Widget child;
   const SheduleAppBar({
     super.key,
     required this.child,
     required this.groupName,
+    required this.type,
   });
 
   @override
@@ -26,18 +29,20 @@ class SheduleAppBar extends StatelessWidget {
     return BlocBuilder<RegistrationBloc, RegistrationState>(
       builder: (context, registertState) {
         return BlocProvider(
-          create: (context) => getIt<Shedulebloc>()
-            ..add(
-              LoadingShedule(
-                groupName: groupName,
-                action:
-                    GoRouter.of(context).state.pathParameters['action'] == 'get'
-                    ? LoadingAction.get
-                    : LoadingAction.reload,
-              ),
-            ),
-          child: BlocBuilder<Shedulebloc, SheduleState>(
+          create: (context) =>
+              getIt<Shedulebloc>()
+                ..add(LoadingShedule(groupName: groupName, type: type)),
+          child: BlocConsumer<Shedulebloc, SheduleState>(
+            listenWhen: (previous, current) {
+              return current.notifyMassage.isNotEmpty && 
+                     current.notifyMassage != previous.notifyMassage;
+            },
+            // 2. Действие: что делать?
+            listener: (context, state) {
+              showTopNotification(context, state.notifyMassage);
+            },
             builder: (context, state) {
+
               return Column(
                 children: [
                   Container(
