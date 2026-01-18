@@ -46,7 +46,15 @@ class Shedulerepositoryimpl implements SheduleRepository {
   @override
   Future<AllShedule> getAllSheduleFromServer(String groupName) async {
     Map<String, dynamic> responce = (await dio.get(
-      "https://aboba123.pythonanywhere.com/api/v1/schedule/$groupName",
+      "https://www.polessu.by/ruz/app/schedule?q=$groupName",
+      //    "https://aboba123.pythonanywhere.com/api/v1/schedule/$groupName",
+      options: Options(
+        headers: {
+          'X-API-Key':
+              'super-secret-key-12345', // Тот же ключ, что в Python коде
+          'Content-Type': 'application/json',
+        },
+      ),
     )).data;
 
     return parser.parseFromJson(responce);
